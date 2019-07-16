@@ -10,6 +10,8 @@ node_modules
 
 # IDEs and editors
 yarn.lock
+.idea
+.idea/workspace.xml
 /.idea
 .project
 .classpath
