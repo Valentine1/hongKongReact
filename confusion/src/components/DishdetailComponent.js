@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Card, CardImg, CardImgOverlay, CardText, CardBody,
+import { Card, CardImg, CardText, CardBody,
     CardTitle } from 'reactstrap';
-import { ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText } from 'reactstrap';
+import { ListGroup, ListGroupItem, ListGroupItemText } from 'reactstrap';
 
 class Dishdetail extends Component {
 
@@ -10,17 +10,19 @@ class Dishdetail extends Component {
         this.state = {
             selectedDish: props.selectedDish
         }
+        console.log("Dishdetail construcor");
     }
 
     renderComments() {
-        const comments = this.state.selectedDish.comments.map((comm) => {
-                return <ListGroup>
+        const comments = this.props.selectedDish.comments.map((comm) => {
+                return <ListGroup key={comm.id}>
                     <ListGroupItem >
                         <ListGroupItemText>
                             {comm.comment}
                         </ListGroupItemText>
 
-                        <ListGroupItemText>--{comm.author}, {comm.date}
+                        <ListGroupItemText>--{comm.author},
+                            {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comm.date)))}
                         </ListGroupItemText>
                     </ListGroupItem>
                 </ListGroup>
@@ -34,15 +36,16 @@ class Dishdetail extends Component {
     }
 
     render() {
-        if (this.state.selectedDish != null){
+        console.log("Dishdetail render");
+        if (this.props.selectedDish != null){
             return (
                 <div  className="row">
                     <div  className="col-12 col-md-5 m-1">
                         <Card>
-                            <CardImg top src={this.state.selectedDish.image} alt={this.state.selectedDish.name} />
+                            <CardImg top src={this.props.selectedDish.image} alt={this.props.selectedDish.name} />
                             <CardBody>
-                                <CardTitle>{this.state.selectedDish.name}</CardTitle>
-                                <CardText>{this.state.selectedDish.description}</CardText>
+                                <CardTitle>{this.props.selectedDish.name}</CardTitle>
+                                <CardText>{this.props.selectedDish.description}</CardText>
                             </CardBody>
                         </Card>
                     </div>
@@ -59,7 +62,7 @@ class Dishdetail extends Component {
             );
         }  else
             return(
-                <div></div>
+                <div>I I am null</div>
             );
 
     }
